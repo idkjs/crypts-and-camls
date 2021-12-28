@@ -48,3 +48,7 @@ init: ## Create a local opam switch and install deps
 	opam switch create . 4.12.0 --deps-only --locked -y
 	# opam install -y ocaml-lsp-server
 	make install
+
+hanoi: ## Build and run the Hanoi.ml project
+	ocaml unix.cma Hanoi.ml
+

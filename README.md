@@ -28,3 +28,10 @@ with the specified dungeon (which corresponds to a JSON file in the `adventures`
 
  ## Misc
  That should be all you need to play the game! Just follow the instructions in each room and you'll make it out alive. If you want you could also subscribe to my [YouTube channel](https://youtube.com/alexlugo).
+
+# Towers of Hanoi from https://www.youtube.com/watch?v=DCKOcY-k2Es&list=PLJZRFttNYVRvwiHcgnCcAQ_s4leCahJM2&index=4
+
+- add `unix.cma` to inline using the Unix library when calling the `Hanoi.ml` program. You could have included it in a dune file.
+```sh
+ocaml unix.cma Hanoi.ml
+```
