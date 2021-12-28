@@ -1,8 +1,9 @@
 (executable
-  (name dungeon)
-  (modules dungeon)
-  (libraries ANSITerminal yojson library))
+ (name dungeon)
+ (modules dungeon)
+ (libraries ANSITerminal yojson library))
+
 (library
-  (name library)
-  (modules library)
-  (libraries ANSITerminal))
+ (name library)
+ (modules library)
+ (libraries ANSITerminal))
