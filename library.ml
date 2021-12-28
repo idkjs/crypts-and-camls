@@ -1,7 +1,9 @@
-open ANSITerminal
+(* open ANSITerminal *)
 open Printf
-open List
-
+(* open List *)
+let red = ANSITerminal.red
+let yellow = ANSITerminal.yellow
+let cyan = ANSITerminal.cyan
 class enemy=object (self)
   val mutable name:string=""
   val mutable health:int=0
@@ -11,19 +13,19 @@ class enemy=object (self)
   method set_dmg n=dmg <- n
 
   method appear:unit=
-    printf "An enemy ";print_string [red] name;printf " appeared!\n";
+    printf "An enemy ";ANSITerminal.print_string [red] name;printf " appeared!\n";
     self#battle
   method battle:unit=
     if health>0 then begin
-      print_string [red] name;printf " attacks you for ";
-      print_string [red] (string_of_int dmg);printf " damage\n";
-      printf "What will you do? (";print_string [yellow] "attack";printf ")\n";
+      ANSITerminal.print_string [red] name;printf " attacks you for ";
+      ANSITerminal.print_string [red] (string_of_int dmg);printf " damage\n";
+      printf "What will you do? (";ANSITerminal.print_string [yellow] "attack";printf ")\n";
       let response=read_line() in begin
         printf "\n";
         if response="attack" then (
           health <- health+(-1);
           printf "You did 1 damage!\n";
-          print_string [red] name;
+          ANSITerminal.print_string [red] name;
           if health=0 then printf " is dead!\n" else printf " has %i health left\n" health
         ) else printf "Your attack missed\n"
       end;
@@ -46,20 +48,20 @@ class room=object (self)
     let input=read_line() in
     printf "\n";
     let next=List.find_all (fun a -> a#name = input ) rooms in
-    if (length next)=0 then begin printf "That's not a room\n";self#choose_room end
-    else (nth next 0)#enter
+    if (List.length next)=0 then begin printf "That's not a room\n";self#choose_room end
+    else (List.nth next 0)#enter
 
   method enter:unit=
-    if (String.length name)>0 then (printf "You enter ";print_string [cyan] name;printf "\n");
-    iter (fun a -> printf "%s " a) messages;printf "\n";
+    if (String.length name)>0 then (printf "You enter ";ANSITerminal.print_string [cyan] name;printf "\n");
+    List.iter (fun a -> printf "%s " a) messages;printf "\n";
     self#priority
   method priority:unit=
-    if (length enemies)>0 then begin
-      (nth enemies 0)#appear;
-      enemies <- List.find_all (fun a -> a!=(nth enemies 0)) enemies;
+    if (List.length enemies)>0 then begin
+      (List.nth enemies 0)#appear;
+      enemies <- List.find_all (fun a -> a!=(List.nth enemies 0)) enemies;
       self#priority
-    end else if (length rooms)>0 then begin
-      iter (fun a -> printf "You can choose to enter ";print_string [cyan] a#name;printf "\n") rooms;
+    end else if (List.length rooms)>0 then begin
+      List.iter (fun a -> printf "You can choose to enter ";ANSITerminal.print_string [cyan] a#name;printf "\n") rooms;
       self#choose_room
     end
 end
