@@ -1,5 +1,11 @@
 #!/bin/bash
 adv="$1"
 [ "$adv" = "" ] && adv="zulubura"
-dune build dungeon.exe --profile release; [ $? = 0 ] || exit
-./_build/default/dungeon.exe "$adv"
+# dune build dungeon.exe --profile release; [ $? = 0 ] || exit
+# ./_build/default/dungeon.exe "$adv"
+
+if ! dune build dungeon.exe --profile release;
+then
+  echo "Build failed"
+fi
+dune exec ./dungeon.exe "$adv"
